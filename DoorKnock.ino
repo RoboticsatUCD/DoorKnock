@@ -1,3 +1,4 @@
+//CONSTANTS
 const int TIMEOUT = 3000;
 const int ARRSIZE = 100;
 const int THRESHOLD = 5;
@@ -52,12 +53,29 @@ void setPattern()
   }
 }
 
-bool comparePattern()
+bool getPattern()
 {
   i = 0;
-  
+  while(getKnock(TIMEOUT))
+  {
+    if(i == 0) //discard the time to the first knock, since that's what will trigger the start of our pattern
+      i++;
+    else
+      input[i++] = len;
+  }
 }
 
 void loop() {
-  getKnock(TIMEOUT); 
+  if(digitalRead(pPROG)) //program the knock sequence
+  {
+    
+  }
+  else
+  {
+    getPattern();
+    if(comparePattern())
+    {
+     //open door 
+    }
+  }
 }
